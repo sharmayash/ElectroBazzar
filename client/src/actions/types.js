@@ -1,0 +1,16 @@
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const GET_ERRORS = "GET_ERRORS";
+export const GET_PROFILE = "GET_PROFILE";
+export const PROFILE_LOADING = "PROFILE_LOADING";
+export const PROFILE_NOT_FOUND = "PROFILE_NOT_FOUND";
+export const CLEAR_CURRENT_PROFILE = "CLEAR_CURRENT_PROFILE";
+export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
+export const PRODUCT_LOADING = "PRODUCT_LOADING";
+export const PRODUCT_ADD = "PRODUCT_ADD";
+export const GET_A_PRODUCT = "GET_A_PRODUCT";
+export const PRODUCT_DELETE = "PRODUCT_DELETE";
+export const DELETE_WISH = "DELETE_WISH";
+export const DELETE_A_CART = "DELETE_A_CART";
+export const QTY_UP = "QTY_UP";
+export const QTY_DOWN = "QTY_DOWN";
+// export const ADD_QUANTITY = "ADD_QUANTITY";
