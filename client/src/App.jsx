@@ -27,6 +27,8 @@ import NotFound from "./components/layout/NotFound";
 import EditProfile from "./components/profile/EditProfile";
 import Sell from "./components/products/Sell";
 import ShowAProduct from "./components/products/ShowAProduct";
+import Wishlist from "./components/UserExtras/Wishlist";
+import Cart from "./components/UserExtras/Cart";
 
 //check for tokens
 if (localStorage.jwtToken) {
@@ -62,6 +64,8 @@ function App() {
               <Route path="/product/:id" component={ShowAProduct} />
               <PrivateRoute path="/profile" component={ShowProfile} />
               <PrivateRoute path="/create-profile" component={CreateProfile} />
+              <PrivateRoute path="/wish" component={Wishlist} />
+              <PrivateRoute path="/cart" component={Cart} />
               <PrivateRoute path="/edit-profile" component={EditProfile} />
               <PrivateRoute path="/sell" component={Sell} />
               <Route path="" component={NotFound} />

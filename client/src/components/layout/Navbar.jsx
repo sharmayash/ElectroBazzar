@@ -206,10 +206,22 @@ function NavBar(props) {
         >
           View Profile
         </Button>
-        <Button size="small" fullWidth>
+        <Button
+          component={Link}
+          to="/wish"
+          onClick={handleClose}
+          size="small"
+          fullWidth
+        >
           WishList
         </Button>
-        <Button size="small" fullWidth>
+        <Button
+          component={Link}
+          to="/cart"
+          onClick={handleClose}
+          size="small"
+          fullWidth
+        >
           Cart
         </Button>
         <Button size="small" fullWidth>

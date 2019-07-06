@@ -25,9 +25,8 @@ const useStyles = makeStyles({
 
 function ProductProItem(props) {
   const classes = useStyles();
-  const deleteProduct = (id, e) => {
-    e.preventDefault();
 
+  const deleteProduct = id => {
     props.deleteProduct(id);
     window.location.reload();
   };
@@ -56,9 +55,7 @@ function ProductProItem(props) {
               <Button size="small" color="primary">
                 Learn More
               </Button>
-              <Button onClick={deleteProduct.bind(this, product._id)}>
-                Delete
-              </Button>
+              <Button onClick={() => deleteProduct(product._id)}>Delete</Button>
             </CardActions>
           </Card>
         </Grid>

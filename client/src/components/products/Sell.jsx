@@ -59,7 +59,7 @@ function Sell(props) {
     const newProduct = {
       name: state.name,
       image:
-        "https://images.pexels.com/photos/2148217/pexels-photo-2148217.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+        "https://images.pexels.com/photos/1092644/pexels-photo-1092644.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
       desc: state.desc,
       specs: state.specs,
       company: state.company,
