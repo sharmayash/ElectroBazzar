@@ -6,8 +6,7 @@ import { loginUser, logOutUser } from "../../actions/authActions";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 import MenuIcon from "@material-ui/icons/Menu";
 import {
@@ -18,13 +17,11 @@ import {
   TextField,
   Button,
   IconButton,
-  ButtonGroup
+  ButtonGroup,
+  Grid
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
   icon: {
     width: "50px",
     paddingRight: "20px"
@@ -37,42 +34,9 @@ const useStyles = makeStyles(theme => ({
       duration: theme.transitions.duration.leavingScreen
     })
   },
-  title: {
-    flexGrow: 1,
-    [theme.breakpoints.down("xs")]: {
-      display: "none"
-    }
-  },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25)
-    }
-  },
-  searchIcon: {
-    width: theme.spacing(7),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
+  tool: {
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  inputRoot: {
-    color: "inherit"
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 7),
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: 120,
-      "&:focus": {
-        width: 200
-      }
-    }
+    alignItems: "center"
   },
   login: {
     background: "linear-gradient(45deg, #5a48a7 30%, #40c4ff 90%)"
@@ -251,35 +215,29 @@ function NavBar(props) {
   );
 
   return (
-    <div className={classes.root}>
+    <div>
       <AppBar className={classes.appbar}>
         <Toolbar variant="dense">
-          <Link to="/">
-            <img
-              alt="logo"
-              className={classes.icon}
-              src="https://cdn4.iconfinder.com/data/icons/social-media-logos-6/512/31-slideshare-256.png"
-            />
-          </Link>
-          <Typography className={classes.title} variant="h6" noWrap>
-            ElectroBazzar
-          </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
+          <Grid container spacing={2}>
+            <Grid item xs={9} sm={10} md={11} className={classes.tool}>
+              <Link to="/">
+                <img
+                  alt="logo"
+                  className={classes.icon}
+                  src="https://cdn4.iconfinder.com/data/icons/social-media-logos-6/512/31-slideshare-256.png"
+                />
+              </Link>
+              <Typography className={classes.title} variant="h6" noWrap>
+                ElectroBazzar
+              </Typography>
+            </Grid>
+            <Grid item xs={3} sm={2} md={1} className={classes.tool}>
               <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
-              inputProps={{ "aria-label": "Search" }}
-            />
-          </div>
-          <IconButton color="inherit" onClick={handleClickOpen}>
-            <MenuIcon />
-          </IconButton>
+              <IconButton color="inherit" onClick={handleClickOpen}>
+                <MenuIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
       {isAuthenticated ? authScreen() : loginScreen()}

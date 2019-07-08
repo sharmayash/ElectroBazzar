@@ -66,9 +66,11 @@ function ProductInfo(props) {
           .map(item => item._id)
           .includes(props.product.product._id)
       ) {
-        setMessage("product already exist");
+        setMessage("Product already exist");
       } else {
-        setMessage("product added");
+        setMessage(
+          "Product added to your wishlist. Please wait for reload ..."
+        );
         props.addWish(props.product.product);
         setTimeout(() => window.location.reload(), 2000);
       }
@@ -85,7 +87,9 @@ function ProductInfo(props) {
       ) {
         setMessage("product already exist");
       } else {
-        setMessage("product added");
+        setMessage(
+          "Product added to your wishlist. Please wait for reload ... "
+        );
         props.addCart(props.product.product);
         setTimeout(() => window.location.reload(), 2000);
       }
@@ -159,14 +163,14 @@ function ProductInfo(props) {
                 </Button>
                 <Snackbar
                   anchorOrigin={{
-                    vertical: "bottom",
+                    vertical: "top",
                     horizontal: "center"
                   }}
                   open={open}
                   style={{
                     background: "linear-gradient(45deg, red 30%, blue 90%)"
                   }}
-                  autoHideDuration={1500}
+                  autoHideDuration={1800}
                   onClose={handleClose}
                   message={message}
                 />
