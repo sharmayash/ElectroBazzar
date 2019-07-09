@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { getProducts } from "../actions/productsActions";
 import ProductItem from "./ProductItem";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+import { Grid, Typography } from "@material-ui/core/";
 import PreLoader from "./common/PreLoader";
 
 const useStyles = makeStyles(() => ({
@@ -26,7 +26,14 @@ function ShowProducts(props) {
   let postContent;
 
   if (products == null || loading) {
-    postContent = <PreLoader />;
+    postContent = (
+      <div>
+        <PreLoader />
+        <Typography variant="caption" color="textSecondary">
+          Loading Products...
+        </Typography>
+      </div>
+    );
   } else {
     postContent = <ProductItem products={products} />;
   }

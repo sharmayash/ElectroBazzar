@@ -12,7 +12,8 @@ import {
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
-  Snackbar
+  Snackbar,
+  Zoom
 } from "@material-ui/core";
 import { addCart } from "../../actions/cartActions";
 import { addWish } from "../../actions/wishlistActions";
@@ -68,9 +69,7 @@ function ProductInfo(props) {
       ) {
         setMessage("Product already exist");
       } else {
-        setMessage(
-          "Product added to your wishlist. Please wait for reload ..."
-        );
+        setMessage("Adding Product to your wishlist. Please wait ...");
         props.addWish(props.product.product);
         setTimeout(() => window.location.reload(), 2000);
       }
@@ -85,11 +84,9 @@ function ProductInfo(props) {
           .map(item => item._id)
           .includes(props.product.product._id)
       ) {
-        setMessage("product already exist");
+        setMessage("Product already exist, Increase Quantity from Cart Page .");
       } else {
-        setMessage(
-          "Product added to your wishlist. Please wait for reload ... "
-        );
+        setMessage("Adding Product to your Cart. Please wait ... ");
         props.addCart(props.product.product);
         setTimeout(() => window.location.reload(), 2000);
       }
@@ -121,94 +118,96 @@ function ProductInfo(props) {
       }
     ];
     info = (
-      <Container fixed style={{ color: "grey" }}>
-        <Typography variant="h3">{product.name}</Typography>
-        <Typography variant="caption">by {product.company}</Typography>
-        <Grid
-          className={classes.whole}
-          container
-          direction="row"
-          justify="space-around"
-          alignItems="flex-start"
-        >
-          <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-            <Container fixed>
-              <img
-                className={classes.img}
-                src={product.image}
-                alt={product.name}
-              />
-            </Container>
-          </Grid>
+      <Zoom in>
+        <Container fixed style={{ color: "grey" }}>
+          <Typography variant="h3">{product.name}</Typography>
+          <Typography variant="caption">by {product.company}</Typography>
           <Grid
-            item
-            xs={12}
-            sm={12}
-            md={6}
-            lg={6}
-            xl={6}
-            className={classes.content}
+            className={classes.whole}
+            container
+            direction="row"
+            justify="space-around"
+            alignItems="flex-start"
           >
-            {isAuthenticated ? (
-              <div>
-                <Button
-                  variant="contained"
-                  style={{ marginRight: "20px" }}
-                  onClick={handleWishClick}
-                >
-                  Wish
-                </Button>
-                <Button variant="contained" onClick={handleCartClick}>
-                  Cart
-                </Button>
-                <Snackbar
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "center"
-                  }}
-                  open={open}
-                  style={{
-                    background: "linear-gradient(45deg, red 30%, blue 90%)"
-                  }}
-                  autoHideDuration={1800}
-                  onClose={handleClose}
-                  message={message}
+            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+              <Container fixed>
+                <img
+                  className={classes.img}
+                  src={product.image}
+                  alt={product.name}
                 />
+              </Container>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={6}
+              lg={6}
+              xl={6}
+              className={classes.content}
+            >
+              {isAuthenticated ? (
+                <div>
+                  <Button
+                    variant="contained"
+                    style={{ marginRight: "20px" }}
+                    onClick={handleWishClick}
+                  >
+                    Wish
+                  </Button>
+                  <Button variant="contained" onClick={handleCartClick}>
+                    Cart
+                  </Button>
+                  <Snackbar
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "center"
+                    }}
+                    open={open}
+                    style={{
+                      background: "linear-gradient(45deg, red 30%, blue 90%)"
+                    }}
+                    autoHideDuration={1800}
+                    onClose={handleClose}
+                    message={message}
+                  />
+                </div>
+              ) : null}
+              <div className={classes.content}>
+                <Typography variant="h6">Price :- ${product.price}</Typography>
+                <Typography variant="overline">
+                  Stocks Left :- {product.inventory}
+                </Typography>
               </div>
-            ) : null}
-            <div className={classes.content}>
-              <Typography variant="h6">Price :- ${product.price}</Typography>
-              <Typography variant="overline">
-                Stocks Left :- {product.inventory}
-              </Typography>
-            </div>
+            </Grid>
           </Grid>
-        </Grid>
-        <Container className={classes.expansion}>
-          {data.map(item => {
-            return (
-              <ExpansionPanel
-                key={item.title}
-                expanded={expanded === item.title}
-                onChange={handleChange(item.title)}
-              >
-                <ExpansionPanelSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls={item.title}
-                  id={item.title}
+          <Container className={classes.expansion}>
+            {data.map(item => {
+              return (
+                <ExpansionPanel
+                  key={item.title}
+                  expanded={expanded === item.title}
+                  onChange={handleChange(item.title)}
                 >
-                  <Typography className={classes.heading}>
-                    {item.title}
-                  </Typography>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                  <Typography>{item.body}</Typography>
-                </ExpansionPanelDetails>
-              </ExpansionPanel>
-            );
-          })}
+                  <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls={item.title}
+                    id={item.title}
+                  >
+                    <Typography className={classes.heading}>
+                      {item.title}
+                    </Typography>
+                  </ExpansionPanelSummary>
+                  <ExpansionPanelDetails>
+                    <Typography>{item.body}</Typography>
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
+              );
+            })}
+          </Container>
         </Container>
-      </Container>
+      </Zoom>
     );
   } else {
     info = (

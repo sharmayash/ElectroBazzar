@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { deleteWish } from "../../actions/wishlistActions";
+import { deleteCart } from "../../actions/cartActions";
 import PreLoader from "../common/PreLoader";
 import { makeStyles } from "@material-ui/core/styles";
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
 import {
   Grid,
   Paper,
@@ -31,24 +33,29 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function WishItem(props) {
+function CartItem(props) {
   const classes = useStyles();
+  let [quantity, setQuantity] = useState(1);
 
-  const deleteWish = id => {
-    props.deleteWish(id);
+  const deleteCart = id => {
+    props.deleteCart(id);
   };
 
-  if (props.wish == null) {
+  const addQuantity = () => {
+    setQuantity(quantity++);
+  };
+
+  if (props.cart == null) {
     window.location.reload();
     return <PreLoader />;
-  } else if (props.wish.length === 0) {
+  } else if (props.cart.length === 0) {
     return (
       <div>
-        <h1>Your Wishlist is Empty</h1>
+        <h1>Your Cart is Empty</h1>
       </div>
     );
-  } else if (props.wish) {
-    return props.wish.map(item => (
+  } else if (props.cart) {
+    return props.cart.map(item => (
       <Grid item xs={12} md={4} key={item._id}>
         <Paper className={classes.paper} elevation={24}>
           <Grid container spacing={2}>
@@ -71,12 +78,30 @@ function WishItem(props) {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Button
-                    onClick={() => deleteWish(item._id)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    Remove
-                  </Button>
+                  <Grid container justify="space-evenly">
+                    <Grid item xs>
+                      <Button
+                        onClick={() => deleteCart(item._id)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        Remove
+                      </Button>
+                    </Grid>
+                    <Grid item xs>
+                      <Grid
+                        container
+                        direction="row"
+                        justify="space-evenly"
+                        alignItems="flex-end"
+                      >
+                        <RemoveIcon /> {quantity}
+                        <AddIcon
+                          onClick={addQuantity}
+                          style={{ cursor: "pointer" }}
+                        />
+                      </Grid>
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
               <Grid item>
@@ -90,8 +115,8 @@ function WishItem(props) {
   }
 }
 
-WishItem.propTypes = {
-  deleteWish: PropTypes.func.isRequired,
+CartItem.propTypes = {
+  deleteCart: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 };
 
@@ -101,5 +126,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { deleteWish }
-)(WishItem);
+  { deleteCart }
+)(CartItem);

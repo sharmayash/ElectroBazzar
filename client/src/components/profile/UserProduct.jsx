@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { deleteProduct } from "../../actions/productsActions";
 import {
   Typography,
@@ -40,26 +41,23 @@ function ProductProItem(props) {
           <Card className={classes.card}>
             <CardActionArea>
               <CardMedia
+                component={Link}
+                to={`/product/${product._id}`}
                 className={classes.media}
                 image={product.image}
                 title={product.company}
               />
               <CardContent>
-                <Typography variant="h6">{product.name}</Typography>
+                <Typography variant="h6" noWrap>
+                  {product.name}
+                </Typography>
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary">
-                Share
-              </Button>
-              <Button size="small" color="primary">
-                Learn More
-              </Button>
               <Button onClick={() => deleteProduct(product._id)}>Delete</Button>
             </CardActions>
           </Card>
         </Grid>
-        //         <Link to={`/product/${product._id}`}>View</Link>
       );
     } else {
       return null;

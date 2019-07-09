@@ -24,7 +24,14 @@ function Dashboard(props) {
 
   if (profile == null || loading) {
     if (isAuthenticated) {
-      dashboardContent = <PreLoader />;
+      dashboardContent = (
+        <div>
+          <PreLoader />
+          <Typography variant="caption" color="textSecondary">
+            Loading Profile ...
+          </Typography>
+        </div>
+      );
     }
   } else {
     if (Object.keys(profile).length > 0) {
